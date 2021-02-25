@@ -8,12 +8,13 @@ export const getInputs = (): IActionInputs => {
   const BRANCH_IGNORE_PATTERN: string = core.getInput('skip-branches', { required: false }) || '';
   const CUSTOM_ISSUE_NUMBER_REGEXP = core.getInput('custom-issue-number-regexp', { required: false });
   const JIRA_PROJECT_KEY = core.getInput('jira-project-key', { required: false });
-
+  const FAIL_PR_WHEN_JIRA_ISSUE_NOT_FOUND = core.getInput('fail-pr-when-jira-issue-not-found', { required: false }) || 'false';
   const WHAT_TO_USE: ESource = (core.getInput('use', { required: false }) as ESource) || ESource.prTitle;
   return {
     JIRA_TOKEN,
     GITHUB_TOKEN,
     WHAT_TO_USE,
+    FAIL_PR_WHEN_JIRA_ISSUE_NOT_FOUND,
     BRANCH_IGNORE_PATTERN,
     JIRA_PROJECT_KEY,
     CUSTOM_ISSUE_NUMBER_REGEXP,
