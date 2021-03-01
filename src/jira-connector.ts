@@ -23,7 +23,7 @@ export class JiraConnector {
     });
   }
 
-  async getTicketDetails(key: string, pr_status: string): Promise<void> {
+  async getTicketDetails(key: string): Promise<void> {
     try {
       const url = `/issue/${key}?fields=project,summary,issuetype`;
       const response = await this.client.get<JIRA.Issue>(url);
@@ -50,16 +50,8 @@ export class JiraConnector {
       await githubConnector.updatePrDetails(details);
     } catch (error) {
       if (error.response) {
-        console.log('Something went wrong in fetching the Jira issues!');
         console.log('Error code - ' + error.response.status);
         console.log(error.response.data);
-      }
-      if (pr_status === 'true') {
-        console.log('Setting PR status as failed');
-        process.exit(1);
-      } else {
-        console.log('Ignore the errors and set PR status as success');
-        process.exit(0);
       }
     }
   }
